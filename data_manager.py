@@ -13,11 +13,6 @@ class DataManager:
         response.raise_for_status()
         return response.json()
 
-    def edit(self,row, row_number):
-        json = {
-            "price": {
-                "iataCode": row['iataCode'],
-            }
-        }
-        response = requests.put(url=f"{self.endpoint}/{row_number}", json=json, headers=self.header)
+    def edit(self, row_number, data):
+        response = requests.put(url=f"{self.endpoint}/{row_number}", json=data, headers=self.header)
         response.raise_for_status()
