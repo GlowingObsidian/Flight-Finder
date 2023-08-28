@@ -6,13 +6,13 @@ class NotificationManager:
         self.account_sid = acc_sid
         self.auth_token = auth_token
 
-    def sendNotification(self, body):
+    def sendNotification(self, body, sender, receiver):
         client = Client(self.account_sid, self.auth_token)
 
         message = client.messages.create(
-            from_='+12514184845',
+            from_=sender,
             body=body,
-            to='+918697445294'
+            to=receiver
         )
 
         print(message.sid)

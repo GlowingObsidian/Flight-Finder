@@ -14,6 +14,8 @@ TEQUILA_API_KEY = os.getenv("TEQUILA_API_KEY")
 TEQUILA_ENDPOINT = os.getenv("TEQUILA_ENDPOINT")
 TWILIO_SID = os.getenv("TWILIO_SID")
 TWILIO_AUTH = os.getenv("TWILIO_AUTH")
+SENDER = os.getenv("SENDER")
+RECEIVER = os.getenv("RECEIVER")
 
 sheet_data = DataManager(SHEETY_ENDPOINT, SHEETY_AUTH_KEY)
 flight_data = FlightSearch(TEQUILA_ENDPOINT, TEQUILA_API_KEY)
@@ -40,4 +42,4 @@ for city in sheet_data.read()['prices']:
         to_time=six_month_from_today
     )
     body = f"Low price alert! Only £{flight.price} to fly from {flight.origin_city}-{flight.origin_airport} to {flight.destination_city}-{flight.destination_airport}, from {flight.out_date} to {flight.return_date}"
-    notif_manager.sendNotification(body)
+    notif_manager.sendNotification(body, SENDER, RECEIVER)
