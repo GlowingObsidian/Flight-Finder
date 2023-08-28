@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from data_manager import DataManager
 from flight_search import FlightSearch
+from datetime import datetime, timedelta
 
 load_dotenv()
 
@@ -25,3 +26,14 @@ for city in sheet_data.read()['prices']:
         }
         sheet_data.edit(city['id'], data)
         print("updated IATA", city['city'])
+
+tomorrow = datetime.now() + timedelta(days=1)
+six_month_from_today = datetime.now() + timedelta(days=(6 * 30))
+
+for city in sheet_data.read()['prices']:
+    flight = flight_data.checkFlights(
+        "LON",
+        city['iataCode'],
+        from_time=tomorrow,
+        to_time=six_month_from_today
+    )
